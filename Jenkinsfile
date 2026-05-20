@@ -6,20 +6,19 @@ pipeline {
         cron('H/10 * * * *')
     }
 
-    environment {
-        PYTHON = 'python3'
-    }
-
     stages {
         stage('Setup') {
             steps {
-                sh '${PYTHON} -m pip install -r requirements.txt --quiet'
+                sh '''
+                    python3 -m venv venv
+                    venv/bin/pip install -r requirements.txt --quiet
+                '''
             }
         }
 
         stage('Run GPS Sync') {
             steps {
-                sh '${PYTHON} main.py'
+                sh 'venv/bin/python main.py'
             }
         }
     }
