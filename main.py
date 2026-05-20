@@ -3,7 +3,7 @@ import pandas as pd
 import time
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 
 logging.basicConfig(
     level=logging.INFO,
@@ -49,6 +49,14 @@ def fetch_gps(vid: int) -> dict:
         return {'lat': None, 'lng': None, 'speed': None, 'gpsdate': None, 'status': str(e)}
 
 
+def _to_bkk(gpsdate) -> str:
+    try:
+        dt = datetime.strptime(str(gpsdate), '%Y-%m-%d %H:%M:%S')
+        return (dt + timedelta(hours=7)).strftime('%Y-%m-%d %H:%M:%S')
+    except Exception:
+        return str(gpsdate)
+
+
 def build_payload(df: pd.DataFrame) -> list:
     payload = []
     for _, row in df.iterrows():
@@ -58,7 +66,7 @@ def build_payload(df: pd.DataFrame) -> list:
             'plate_type'    : row['plate_type'],
             'gps_vendor'    : 'hino',
             'current_latlng': f"{row['lat']},{row['lng']}" if row['lat'] and row['lng'] else '',
-            'gps_updated_at': str(row['gpsdate']),
+            'gps_updated_at': _to_bkk(row['gpsdate']),
             'status'        : 'หยุด' if row['speed'] == 0 else 'วิ่ง',
         })
     return payload
