@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     triggers {
-        // Run every 5 minutes
         cron('H/10 * * * *')
     }
 
@@ -10,7 +9,14 @@ pipeline {
         stage('Setup') {
             steps {
                 sh '''
+                    # Install python3-venv if missing (Debian/Ubuntu Jenkins)
+                    if ! python3 -m venv --help > /dev/null 2>&1; then
+                        apt-get install -y python3-venv python3-full 2>/dev/null || true
+                    fi
+
+                    # Create venv and install deps
                     python3 -m venv venv
+                    venv/bin/pip install --upgrade pip --quiet
                     venv/bin/pip install -r requirements.txt --quiet
                 '''
             }
