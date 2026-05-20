@@ -92,7 +92,7 @@ def main():
     for i, v in enumerate(VEHICLES, 1):
         gps = fetch_gps(v['vid'])
         rows.append({**v, **gps})
-        log.info(f'[{i}/{len(VEHICLES)}] {v["plate"]}  lat={gps["lat"]}  lng={gps["lng"]}  speed={gps["speed"]}  {gps["status"]}')
+        log.info(f'[{i}/{len(VEHICLES)}] {v["plate"]}  lat={gps["lat"]}  lng={gps["lng"]}  speed={gps["speed"]}  gpsdate={_to_bkk(gps["gpsdate"])} (BKK)  {gps["status"]}')
         time.sleep(DELAY)
 
     df = pd.DataFrame(rows)
