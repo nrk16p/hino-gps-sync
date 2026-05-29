@@ -19,6 +19,9 @@ VEHICLES = [
     {'plate': '73-3343', 'plate_type': 'H', 'gps_vendor': 'hino', 'vid': 81141},
     {'plate': '73-3316', 'plate_type': 'H', 'gps_vendor': 'hino', 'vid': 81139},
     {'plate': '73-3315', 'plate_type': 'H', 'gps_vendor': 'hino', 'vid': 81138},
+    {'plate': '73-3401', 'plate_type': 'H', 'gps_vendor': 'hino', 'vid': 81144},
+    {'plate': '73-3402', 'plate_type': 'H', 'gps_vendor': 'hino', 'vid': 81143},
+    {'plate': '73-3403', 'plate_type': 'H', 'gps_vendor': 'hino', 'vid': 81142},
 ]
 
 HINO_API_URL  = 'https://hino-api.onelink-iot.com/prod/fleet/V2/Infomation'
