@@ -25,7 +25,7 @@ VEHICLES = [
 ]
 
 HINO_API_URL  = 'https://hino-api.onelink-iot.com/prod/fleet/V2/Infomation'
-BACKEND_URL   = 'https://backend-tdm-qa.onrender.com/gpsdata'
+BACKEND_URL   = 'https://backend-tdm.onrender.com/gpsdata'
 DELAY         = 0.3
 TIMEOUT       = 10
 
