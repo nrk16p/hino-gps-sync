@@ -60,6 +60,14 @@ def _to_bkk(gpsdate) -> str:
         return str(gpsdate)
 
 
+def _speed_kmh(v):
+    """speed → int km/h; ค่าว่าง/อ่านไม่ได้ → None (ไม่ทำให้ทั้งรอบพัง)"""
+    try:
+        return int(round(float(v)))
+    except (TypeError, ValueError):
+        return None
+
+
 def build_payload(df: pd.DataFrame) -> list:
     payload = []
     for _, row in df.iterrows():
@@ -71,6 +79,7 @@ def build_payload(df: pd.DataFrame) -> list:
             'current_latlng': f"{row['lat']},{row['lng']}" if row['lat'] and row['lng'] else '',
             'gps_updated_at': _to_bkk(row['gpsdate']),
             'status'        : 'หยุด' if row['speed'] == 0 else 'วิ่ง',
+            'speed'         : _speed_kmh(row['speed']),             # km/h
         })
     return payload
 
